@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MINDRA — Consultoria em Inteligência Artificial</title>
+<meta name="description" content="A MINDRA identifica oportunidades, estrutura soluções e implementa Inteligência Artificial para simplificar processos, melhorar o atendimento e tornar o trabalho mais eficiente.">
+<meta name="theme-color" content="#143D9E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-26 -24 248 196'%3E%3Crect x='-26' y='-24' width='248' height='196' rx='40' fill='%23fff'/%3E%3Cpath fill='%23143D9E' d='M84 0h28l84 148h-31l-34-59-13 19-14-23 12-23-18-30-18 30 12 23-14 23-13-19-34 59H0z'/%3E%3Cpath fill='%23C4512A' d='M98 93l14 24-14 24-14-24z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#143D9E;
+  --blue-600:#1A49B8;
+  --blue-800:#0E2C75;
+  --blue-50:#EEF2FB;
+  --blue-100:#DCE4F6;
+  --orange:#C4512A;
+  --orange-600:#A94220;
+  --orange-50:#FBEFEA;
+  --ink:#141A22;
+  --ink-2:#2A323E;
+  --muted:#5A6371;
+  --line:#E3E6EC;
+  --paper:#F6F5F1;
+  --white:#fff;
+  --radius:14px;
+  --radius-sm:10px;
+  --max:1200px;
+  --head:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --body:"Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --shadow:0 1px 2px rgba(20,26,34,.04),0 8px 24px -12px rgba(20,26,34,.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--body);color:var(--ink-2);background:var(--white);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--head);color:var(--ink);line-height:1.15;margin:0;letter-spacing:-.015em}
+p{margin:0}
+.container{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:100;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+
+/* ---------- Logo ---------- */
+.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand svg{width:46px;height:auto;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1}
+.brand-name{font-family:var(--head);font-weight:800;font-size:25px;letter-spacing:.02em;color:inherit}
+.brand-sub{font-family:var(--body);font-weight:500;font-size:7.6px;letter-spacing:0;margin-top:4px;text-rendering:geometricPrecision;color:inherit;white-space:nowrap}
+.brand--light{color:#fff}
+
+/* ---------- Header ---------- */
+.header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(10px);-webkit-backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.header.scrolled{border-bottom-color:var(--line)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
+.nav{display:flex;align-items:center;gap:30px}
+.nav a{text-decoration:none;font-family:var(--head);font-weight:600;font-size:14.5px;color:var(--ink-2);position:relative;padding:6px 0}
+.nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.nav a:not(.btn):hover::after{transform:scaleX(1)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--head);font-weight:700;font-size:15px;text-decoration:none;padding:15px 24px;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s;line-height:1.1}
+.btn svg{width:16px;height:16px;transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-800)}
+.btn-accent{background:var(--orange);color:#fff}
+.btn-accent:hover{background:var(--orange-600)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:#CBD1DB}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{padding:11px 18px;font-size:14px}
+.nav .btn{color:#fff;padding:11px 18px}
+.nav .btn::after{display:none}
+
+/* ---------- Section base ---------- */
+section{position:relative}
+.section{padding:112px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:18px}
+.eyebrow::before{content:"";width:9px;height:9px;background:var(--orange);transform:rotate(45deg) scaleY(1.35)}
+.section-head{max-width:720px;margin-bottom:56px}
+.section-head h2{font-size:clamp(30px,4vw,44px);font-weight:800}
+.section-head p{margin-top:18px;font-size:18px;color:var(--muted)}
+
+/* ---------- Hero ---------- */
+.hero{padding:72px 0 96px;overflow:hidden;background:
+  linear-gradient(180deg,#fff 0%,#fff 60%,var(--paper) 100%)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero-logo{display:flex;align-items:center;gap:16px;margin-bottom:36px}
+.hero-logo svg{width:62px}
+.hero-logo .brand-name{font-size:32px}
+.hero-logo .brand-sub{font-size:9.7px}
+.hero h1{font-size:clamp(38px,5.4vw,62px);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero-text{font-size:19px;color:var(--muted);margin-top:24px;max-width:560px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.hero-points{display:flex;flex-wrap:wrap;gap:10px 28px;margin:44px 0 0;padding:28px 0 0;list-style:none;border-top:1px solid var(--line)}
+.hero-points li{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;color:var(--ink-2)}
+.hero-points li::before{content:"";width:7px;height:7px;background:var(--orange);transform:rotate(45deg) scaleY(1.35)}
+
+.hero-visual{position:relative;aspect-ratio:1/1;max-width:540px;justify-self:end;width:100%}
+.hero-visual svg{width:100%;height:100%;overflow:visible}
+.hv-grid line{stroke:#DDE2EA;stroke-width:1}
+.hv-guide{stroke:var(--blue);stroke-width:1.2;stroke-dasharray:5 6;opacity:.45;fill:none}
+.hv-ring{fill:none;stroke:var(--orange);stroke-width:1.4;opacity:.8}
+.hv-label{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.12em;fill:var(--muted)}
+.hv-num{font-family:var(--head);font-size:11px;font-weight:800;fill:var(--orange)}
+.hv-dot{fill:#fff;stroke:var(--blue);stroke-width:1.6}
+@media (prefers-reduced-motion:no-preference){
+  .hv-guide{stroke-dashoffset:400;animation:draw 1.8s .3s ease-out forwards}
+  .hv-mark{opacity:0;transform:translateY(14px);animation:rise .9s .1s cubic-bezier(.2,.7,.2,1) forwards}
+  .hv-diamond{opacity:0;animation:fadeIn .6s .9s ease forwards}
+  .hv-meta{opacity:0;animation:fadeIn .8s 1.3s ease forwards}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ---------- Problem ---------- */
+.problem{background:var(--paper)}
+.problem-top{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:56px}
+.problem-top h2{font-size:clamp(30px,4vw,44px);font-weight:800}
+.problem-top p{font-size:18px;color:var(--muted)}
+.problem-top p + p{margin-top:14px}
+.cards-6{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.pcard{background:#fff;padding:34px 30px 36px;position:relative;transition:background .2s}
+.pcard:hover{background:#FCFCFB}
+.pcard-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-50);color:var(--blue);display:grid;place-items:center;margin-bottom:22px}
+.pcard-icon svg{width:22px;height:22px}
+.pcard h3{font-size:19px;font-weight:700;margin-bottom:8px}
+.pcard p{font-size:15.5px;color:var(--muted)}
+.pcard .idx{position:absolute;top:30px;right:28px;font-family:var(--head);font-weight:700;font-size:12px;color:#B3BAC5;letter-spacing:.08em}
+.problem-note{margin-top:36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:26px 30px;background:var(--ink);border-radius:var(--radius);color:#D4D9E1}
+.problem-note strong{color:#fff;font-family:var(--head);font-size:18px;display:block;margin-bottom:2px}
+
+/* ---------- Process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative;counter-reset:s}
+.steps::before{content:"";position:absolute;top:27px;left:28px;right:28px;height:2px;background:repeating-linear-gradient(90deg,var(--blue-100) 0 8px,transparent 8px 14px)}
+.step{position:relative}
+.step-mark{width:56px;height:56px;display:grid;place-items:center;position:relative;margin-bottom:28px}
+.step-mark::before{content:"";position:absolute;inset:9px;background:#fff;border:2px solid var(--blue);transform:rotate(45deg);border-radius:4px}
+.step:last-child .step-mark::before{background:var(--orange);border-color:var(--orange)}
+.step-mark span{position:relative;font-family:var(--head);font-weight:800;font-size:14px;color:var(--blue)}
+.step:last-child .step-mark span{color:#fff}
+.step h3{font-size:24px;font-weight:800;margin-bottom:10px}
+.step p{color:var(--muted);font-size:16px;max-width:260px}
+.step small{display:block;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-2);font-weight:600;max-width:260px}
+
+/* ---------- Services ---------- */
+.services{background:var(--paper)}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.svc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px 32px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s,box-shadow .2s}
+.svc:hover{border-color:#C6CFDF;transform:translateY(-3px);box-shadow:var(--shadow)}
+.svc-icon{width:48px;height:48px;border-radius:12px;border:1.5px solid var(--blue-100);color:var(--blue);display:grid;place-items:center;margin-bottom:26px}
+.svc-icon svg{width:24px;height:24px}
+.svc h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.svc p{font-size:15.5px;color:var(--muted)}
+.svc ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:8px}
+.svc li{font-size:14px;color:var(--ink-2);display:flex;gap:10px;align-items:baseline}
+.svc li::before{content:"";flex:none;width:6px;height:6px;background:var(--orange);transform:translateY(-2px) rotate(45deg)}
+.svc-link{margin-top:auto;padding-top:24px;display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:700;font-size:13.5px;color:var(--blue);text-decoration:none}
+.svc-link svg{width:14px;height:14px;transition:transform .2s}
+.svc-link:hover svg{transform:translateX(3px)}
+.svc--featured{grid-column:span 2;background:var(--blue);border-color:var(--blue);color:#DCE4F6;position:relative;overflow:hidden}
+.svc--featured:hover{border-color:var(--blue)}
+.svc--featured h3{color:#fff;font-size:26px}
+.svc--featured p{color:#C9D4EE;font-size:16.5px;max-width:420px}
+.svc--featured li{color:#E7ECF8}
+.svc--featured .svc-icon{border-color:rgba(255,255,255,.3);color:#fff}
+.svc--featured .tag{display:inline-block;align-self:flex-start;font-family:var(--head);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.12);color:#fff;padding:6px 10px;border-radius:6px;margin-bottom:18px}
+.svc--featured .bg-mark{position:absolute;right:-40px;bottom:-40px;width:260px;opacity:.09;pointer-events:none}
+.svc--featured > *:not(.bg-mark){position:relative}
+
+/* ---------- Applications ---------- */
+.apps{background:var(--ink);color:#C3CAD4}
+.apps .eyebrow{color:#9FB4E6}
+.apps .section-head h2{color:#fff}
+.apps .section-head p{color:#A7B0BD}
+.apps-wrap{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:stretch}
+.tablist{display:flex;flex-direction:column;border-top:1px solid #2B3340}
+.tab{appearance:none;background:none;border:0;border-bottom:1px solid #2B3340;color:#8E98A7;text-align:left;padding:22px 4px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.12em;transition:color .2s}
+.tab small{font-family:var(--body);font-weight:400;letter-spacing:0;font-size:13.5px;display:block;margin-top:4px;color:#6F7A89;text-transform:none}
+.tab .arrow{width:10px;height:10px;background:transparent;border:1.5px solid #4A5362;transform:rotate(45deg) scaleY(1.3);transition:all .2s;flex:none;margin-left:16px}
+.tab:hover{color:#fff}
+.tab[aria-selected="true"]{color:#fff}
+.tab[aria-selected="true"] .arrow{background:var(--orange);border-color:var(--orange)}
+.panel{background:#1B222C;border:1px solid #2B3340;border-radius:var(--radius);padding:40px;display:flex;flex-direction:column}
+.panel[hidden]{display:none}
+.panel h3{color:#fff;font-size:30px;font-weight:800}
+.panel > p{margin-top:12px;font-size:17px;max-width:560px}
+.flow{margin-top:36px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:12px}
+.flow-step{background:#232B37;border:1px solid #323B49;border-radius:var(--radius-sm);padding:20px 18px}
+.flow-step b{display:block;font-family:var(--head);font-size:11px;letter-spacing:.14em;color:#8FA6DD;margin-bottom:8px;font-weight:700}
+.flow-step span{color:#E6EAF0;font-size:15px;line-height:1.45;display:block}
+.flow-step.mid{border-color:var(--blue);background:rgba(20,61,158,.18)}
+.flow-arrow{align-self:center;color:var(--orange)}
+.flow-arrow svg{width:22px;height:22px}
+.panel-foot{margin-top:auto;padding-top:28px;font-size:13.5px;color:#7F8A99;display:flex;gap:10px;align-items:center}
+.panel-foot::before{content:"";width:6px;height:6px;border:1.5px solid #7F8A99;transform:rotate(45deg);flex:none;align-self:center}
+
+/* ---------- Differentials ---------- */
+.diff-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:start}
+.diff-intro h2{font-size:clamp(34px,4.6vw,54px);font-weight:800}
+.diff-intro h2 span{color:var(--blue)}
+.diff-intro p{margin-top:22px;font-size:18px;color:var(--muted);max-width:440px}
+.diff-quote{margin-top:36px;padding:24px 26px;border-left:3px solid var(--orange);background:var(--orange-50);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-family:var(--head);font-weight:600;color:var(--ink);font-size:17px;line-height:1.45;max-width:440px}
+.diff-list{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.diff-item{padding:26px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:40px 1fr;gap:4px 16px}
+.diff-item .n{font-family:var(--head);font-weight:800;font-size:14px;color:var(--orange);padding-top:3px}
+.diff-item h3{font-size:18.5px;font-weight:700}
+.diff-item p{grid-column:2;font-size:15.5px;color:var(--muted)}
+
+/* ---------- About ---------- */
+.about{background:var(--paper);overflow:hidden}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.about-card{position:relative;background:var(--blue);border-radius:20px;aspect-ratio:5/5.4;overflow:hidden;color:#fff;padding:40px;display:flex;flex-direction:column;justify-content:flex-end}
+.about-card .pattern{position:absolute;inset:0;width:100%;height:100%}
+.about-card h3{color:#fff;font-size:28px;font-weight:800;position:relative;max-width:380px}
+.about-card p{position:relative;margin-top:12px;color:#CBD6F0;max-width:380px;font-size:16px}
+.about-text h2{font-size:clamp(30px,4vw,44px);font-weight:800}
+.about-text > p{margin-top:20px;font-size:17.5px;color:var(--muted)}
+.about-text > p strong{color:var(--ink);font-weight:600}
+.commit{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.commit div{background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px 20px}
+.commit h4{font-size:15.5px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.commit h4::before{content:"";width:7px;height:7px;background:var(--orange);transform:rotate(45deg) scaleY(1.3);flex:none}
+.commit p{font-size:14.5px;color:var(--muted)}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+.contact-info h2{font-size:clamp(30px,4vw,44px);font-weight:800}
+.contact-info > p{margin-top:18px;font-size:17.5px;color:var(--muted)}
+.next{margin-top:36px;list-style:none;padding:0;counter-reset:n;display:grid;gap:0}
+.next li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:14px;padding:18px 0;border-top:1px solid var(--line)}
+.next li::before{content:"0" counter(n);font-family:var(--head);font-weight:800;font-size:14px;color:var(--blue);padding-top:2px}
+.next b{display:block;font-family:var(--head);color:var(--ink);font-size:16px;margin-bottom:2px}
+.next span{font-size:15px;color:var(--muted)}
+.form{background:#fff;border:1px solid var(--line);border-radius:20px;padding:40px;box-shadow:var(--shadow)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{font-family:var(--head);font-weight:600;font-size:13.5px;color:var(--ink)}
+.field label .opt{font-weight:500;color:#8A93A0;font-family:var(--body)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;color:var(--ink);background:#FBFBFA;border:1.5px solid #D9DDE4;border-radius:10px;padding:13px 14px;width:100%;transition:border-color .15s,background .15s,box-shadow .15s}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6371' stroke-width='1.8' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.field textarea{min-height:130px;resize:vertical}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:#BFC6D1}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(20,61,158,.12)}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:#B3261E}
+.err{font-size:13px;color:#B3261E;display:none}
+.field.invalid .err{display:block}
+.form-foot{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.form-foot p{font-size:13.5px;color:var(--muted);max-width:340px}
+.form-success{display:none;text-align:center;padding:40px 10px}
+.form-success svg{width:64px;margin:0 auto 22px}
+.form-success h3{font-size:24px;font-weight:800}
+.form-success p{margin-top:10px;color:var(--muted)}
+.form.sent .form-body{display:none}
+.form.sent .form-success{display:block}
+
+/* ---------- CTA band ---------- */
+.cta-band{background:var(--blue);color:#fff;overflow:hidden}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:64px 0;position:relative}
+.cta-inner h2{color:#fff;font-size:clamp(26px,3.2vw,36px);font-weight:800;max-width:640px}
+.cta-inner p{color:#C9D4EE;margin-top:10px;font-size:17px}
+.cta-band .deco{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:420px;opacity:.07;pointer-events:none}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--ink);color:#96A0AE;padding:64px 0 32px;font-size:14.5px}
+.footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid #2B3340}
+.footer-top > div > p{margin-top:18px;max-width:340px}
+.footer nav{display:flex;gap:56px;flex-wrap:wrap}
+.footer h4{color:#fff;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.footer a{text-decoration:none}
+.footer a:hover{color:#fff}
+.footer-bottom{padding-top:28px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13.5px}
+
+
+/* ---------- Canais de contato ---------- */
+.channels{margin-top:32px;display:grid;gap:10px}
+.channel{display:flex;align-items:center;gap:16px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius-sm);text-decoration:none;background:#fff;transition:border-color .2s,background .2s}
+.channel:hover{border-color:var(--blue);background:var(--blue-50)}
+.channel .ci{width:42px;height:42px;border-radius:10px;background:var(--blue-50);color:var(--blue);display:grid;place-items:center;flex:none}
+.channel .ci svg{width:21px;height:21px}
+.channel small{display:block;font-family:var(--head);font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.channel b{display:block;font-family:var(--head);font-weight:700;color:var(--ink);font-size:16px;word-break:break-all}
+.channel .go{margin-left:auto;color:var(--blue);width:16px;height:16px;flex:none}
+.success-actions{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.footer-social{display:flex;gap:10px;margin-top:22px}
+.footer-social a{width:40px;height:40px;border:1px solid #2F3846;border-radius:10px;display:grid;place-items:center;color:#C3CAD4;transition:border-color .2s,color .2s}
+.footer-social a:hover{border-color:#fff;color:#fff}
+.footer-social svg{width:19px;height:19px}
+
+/* ---------- Reveal ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .js .reveal.in{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1080px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .apps-wrap{grid-template-columns:1fr}
+  .tablist{flex-direction:row;overflow-x:auto;border-top:0;border-bottom:1px solid #2B3340;gap:4px;scrollbar-width:none}
+  .tablist::-webkit-scrollbar{display:none}
+  .tab{border-bottom:2px solid transparent;padding:14px 14px;flex:none;font-size:13.5px}
+  .tab small,.tab .arrow{display:none}
+  .tab[aria-selected="true"]{border-bottom-color:var(--orange)}
+  .diff-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
+  .about-card{aspect-ratio:auto;min-height:380px}
+}
+@media (max-width:900px){
+  body{font-size:16px}
+  .section{padding:80px 0}
+  .nav{position:fixed;inset:76px 0 auto 0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 24px;border-bottom:1px solid var(--line);box-shadow:0 20px 30px -20px rgba(0,0,0,.15);display:none}
+  .nav.open{display:flex}
+  .nav a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+  .nav a:not(.btn)::after{display:none}
+  .nav .btn{margin-top:16px;border-bottom:0}
+  .menu-btn{display:inline-flex}
+  .hero{padding:48px 0 72px}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-visual{justify-self:center;max-width:440px}
+  .problem-top{grid-template-columns:1fr;gap:20px}
+  .cards-6{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:44px 28px}
+  .steps::before{display:none}
+  .flow{grid-template-columns:1fr;gap:8px}
+  .flow-arrow{justify-self:center;transform:rotate(90deg)}
+  .cta-inner{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:600px){
+  .container{padding:0 20px}
+  .hero-logo svg{width:50px}
+  .hero-logo .brand-name{font-size:26px}
+  .hero-logo .brand-sub{font-size:7.9px}
+  .hero-actions .btn{width:100%}
+  .cards-6,.steps,.svc-grid,.diff-list,.commit,.form-grid{grid-template-columns:1fr}
+  .svc--featured{grid-column:auto}
+  .panel,.form{padding:26px 22px}
+  .panel h3{font-size:24px}
+  .header .brand-sub{display:none}
+  .footer nav{gap:36px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- Símbolo oficial MINDRA (vetorizado a partir da logo de referência) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mindra-m" viewBox="0 0 196 148">
+      <path fill="var(--m-main,#143D9E)" d="M84 0h28l84 148h-31l-34-59-13 19-14-23 12-23-18-30-18 30 12 23-14 23-13-19-34 59H0z"/>
+      <path fill="var(--m-accent,#C4512A)" d="M98 93l14 24-14 24-14-24z"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></g></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9a4.5 4.5 0 0 1-2.3-2.3l.9-1-1-2z"/></g></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="header" id="topo">
+  <div class="container header-inner">
+    <a href="#topo" class="brand" aria-label="MINDRA — página inicial">
+      <svg viewBox="0 0 196 148" aria-hidden="true"><use href="#mindra-m"/></svg>
+      <span class="brand-text"><span class="brand-name">MINDRA</span><span class="brand-sub">CONSULTORIA EM INTELIGÊNCIA ARTIFICIAL</span></span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#como-trabalhamos">Como trabalhamos</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#aplicacoes">Aplicações</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato" class="btn btn-primary btn-sm">Falar com a MINDRA</a>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-logo" aria-hidden="true">
+        <svg viewBox="0 0 196 148"><use href="#mindra-m"/></svg>
+        <span class="brand-text"><span class="brand-name">MINDRA</span><span class="brand-sub">CONSULTORIA EM INTELIGÊNCIA ARTIFICIAL</span></span>
+      </div>
+      <h1>IA aplicada ao que sua empresa <em>realmente precisa.</em></h1>
+      <p class="hero-text">A MINDRA identifica oportunidades, estrutura soluções e implementa Inteligência Artificial para simplificar processos, melhorar o atendimento e tornar o trabalho mais eficiente.</p>
+      <div class="hero-actions">
+        <a href="#contato" class="btn btn-primary">Falar com a MINDRA <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a href="#servicos" class="btn btn-ghost">Conhecer soluções</a>
+      </div>
+      <ul class="hero-points">
+        <li>Diagnóstico antes da ferramenta</li>
+        <li>Soluções sob medida</li>
+        <li>Acompanhamento após a entrega</li>
+      </ul>
+    </div>
+
+    <!-- Elemento visual exclusivo: a "construção" do símbolo MINDRA -->
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 520 520">
+        <g class="hv-grid">
+          <line x1="20" y1="100" x2="500" y2="100"/><line x1="20" y1="420" x2="500" y2="420"/>
+          <line x1="20" y1="260" x2="500" y2="260"/>
+          <line x1="48" y1="20" x2="48" y2="500"/><line x1="472" y1="20" x2="472" y2="500"/>
+          <line x1="260" y1="20" x2="260" y2="500"/>
+        </g>
+        <!-- linhas-guia paralelas às pernas do M -->
+        <g transform="translate(48 100) scale(2.163)">
+          <path class="hv-guide" d="M-24 190 L98 -24 L220 190" vector-effect="non-scaling-stroke"/>
+          <path class="hv-guide" d="M-9 190 L65 89 M205 190 L131 89" vector-effect="non-scaling-stroke"/>
+          <path class="hv-guide" d="M98 -10 L98 170" vector-effect="non-scaling-stroke"/>
+        </g>
+        <!-- símbolo -->
+        <g class="hv-mark"><svg x="48" y="100" width="424" height="320" viewBox="0 0 196 148"><path fill="#143D9E" d="M84 0h28l84 148h-31l-34-59-13 19-14-23 12-23-18-30-18 30 12 23-14 23-13-19-34 59H0z"/></svg></g>
+        <g class="hv-diamond">
+          <svg x="48" y="100" width="424" height="320" viewBox="0 0 196 148"><path fill="#C4512A" d="M98 93l14 24-14 24-14-24z"/></svg>
+          <circle class="hv-ring" cx="260" cy="353" r="72" stroke-dasharray="3 7"/>
+        </g>
+        <g class="hv-meta">
+          <circle class="hv-dot" cx="48" cy="420" r="5"/><circle class="hv-dot" cx="472" cy="420" r="5"/>
+          <circle class="hv-dot" cx="260" cy="100" r="5"/><circle class="hv-dot" cx="260" cy="169" r="5"/>
+          <text class="hv-num" x="60" y="60">01</text><text class="hv-label" x="82" y="60">ENTENDER</text>
+          <text class="hv-num" x="330" y="60">02</text><text class="hv-label" x="352" y="60">DIAGNOSTICAR</text>
+          <text class="hv-num" x="60" y="470">03</text><text class="hv-label" x="82" y="470">ESTRUTURAR</text>
+          <text class="hv-num" x="330" y="470">04</text><text class="hv-label" x="352" y="470">IMPLEMENTAR</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="section problem" aria-labelledby="t-problema">
+  <div class="container">
+    <div class="problem-top reveal">
+      <div>
+        <span class="eyebrow">O ponto de partida</span>
+        <h2 id="t-problema">Sua empresa realmente precisa de mais tecnologia?</h2>
+      </div>
+      <div>
+        <p>Nem sempre. Muitas empresas já têm ferramentas de sobra — o que falta é clareza sobre onde elas realmente ajudam.</p>
+        <p>Boa parte das dificuldades do dia a dia pode ser resolvida com automação e Inteligência Artificial. O desafio costuma ser outro: saber por onde começar.</p>
+      </div>
+    </div>
+
+    <div class="cards-6 reveal">
+      <article class="pcard"><span class="idx">01</span>
+        <div class="pcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7M20 4v4.7h-4.7M20 12a8 8 0 0 1-13.7 5.6L4 15.3M4 20v-4.7h4.7"/></svg></div>
+        <h3>Processos repetitivos</h3><p>As mesmas etapas feitas à mão, todos os dias, consumindo tempo da equipe.</p></article>
+      <article class="pcard"><span class="idx">02</span>
+        <div class="pcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M9 11h6M9 14h4"/></svg></div>
+        <h3>Atendimento sobrecarregado</h3><p>Mensagens acumuladas, perguntas repetidas e clientes esperando resposta.</p></article>
+      <article class="pcard"><span class="idx">03</span>
+        <div class="pcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h7l2 2h7v10H4z"/><path d="M4 7V5h6"/></svg></div>
+        <h3>Informações desorganizadas</h3><p>Dados espalhados em planilhas, e-mails e pastas que ninguém encontra.</p></article>
+      <article class="pcard"><span class="idx">04</span>
+        <div class="pcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg></div>
+        <h3>Muitas tarefas manuais</h3><p>Copiar, colar, conferir e preencher — trabalho que não exige decisão humana.</p></article>
+      <article class="pcard"><span class="idx">05</span>
+        <div class="pcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg></div>
+        <h3>Perda de tempo</h3><p>Horas gastas em atividades operacionais em vez do que faz o negócio crescer.</p></article>
+      <article class="pcard"><span class="idx">06</span>
+        <div class="pcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c1.8.8 3 2.7 3 5.5"/></svg></div>
+        <h3>Dificuldade para acompanhar clientes</h3><p>Contatos que esfriam, retornos esquecidos e histórico difícil de consultar.</p></article>
+    </div>
+
+    <div class="problem-note reveal">
+      <div><strong>Reconheceu algum desses pontos?</strong>É exatamente por aí que a MINDRA começa.</div>
+      <a href="#como-trabalhamos" class="btn btn-accent btn-sm">Ver como trabalhamos <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- COMO TRABALHA -->
+<section class="section" id="como-trabalhamos" aria-labelledby="t-processo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Como a MINDRA trabalha</span>
+      <h2 id="t-processo">Primeiro entendemos. Depois implementamos.</h2>
+      <p>Não partimos da ferramenta. Partimos do seu negócio. Cada etapa existe para garantir que a solução final resolva um problema real.</p>
+    </div>
+    <ol class="steps reveal" style="list-style:none;padding:0;margin:0">
+      <li class="step"><div class="step-mark"><span>01</span></div><h3>Entender</h3><p>Conhecemos o negócio e suas dificuldades.</p><small>Conversas com quem vive a rotina da empresa.</small></li>
+      <li class="step"><div class="step-mark"><span>02</span></div><h3>Diagnosticar</h3><p>Encontramos processos onde IA pode ajudar.</p><small>E também onde ela não é necessária.</small></li>
+      <li class="step"><div class="step-mark"><span>03</span></div><h3>Estruturar</h3><p>Definimos a solução mais adequada.</p><small>Escopo, ferramentas e etapas claras antes de começar.</small></li>
+      <li class="step"><div class="step-mark"><span>04</span></div><h3>Implementar</h3><p>Colocamos a solução em funcionamento e acompanhamos sua utilização.</p><small>Ajustes a partir do uso real pela equipe.</small></li>
+    </ol>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="section services" id="servicos" aria-labelledby="t-servicos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Serviços</span>
+      <h2 id="t-servicos">Soluções pensadas para a rotina da sua empresa.</h2>
+      <p>Da consultoria inicial à implementação, cada serviço pode ser contratado de forma independente ou combinado conforme a necessidade.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc svc--featured reveal">
+        <svg class="bg-mark" viewBox="0 0 196 148" aria-hidden="true" style="--m-main:#fff;--m-accent:#fff"><use href="#mindra-m"/></svg>
+        <span class="tag">Por onde começar</span>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M11 8v6M8 11h6"/></svg></div>
+        <h3>Consultoria em IA</h3>
+        <p>Identificação de oportunidades de aplicação de Inteligência Artificial no seu negócio, com prioridades e próximos passos definidos.</p>
+        <ul><li>Mapeamento de processos</li><li>Prioridades por impacto e esforço</li><li>Recomendações claras e objetivas</li></ul>
+        <a class="svc-link" href="#contato" data-servico="Consultoria em IA" style="color:#fff">Quero saber mais<span class="sr-only"> sobre Consultoria em IA</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="6" rx="1.5"/><rect x="15" y="14" width="6" height="6" rx="1.5"/><path d="M9 7h5a3 3 0 0 1 3 3v4"/></svg></div>
+        <h3>Automação</h3><p>Automatização de tarefas e processos repetitivos.</p>
+        <a class="svc-link" href="#contato" data-servico="Automação">Quero saber mais<span class="sr-only"> sobre Automação</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
+        <h3>Atendimento inteligente</h3><p>Chatbots, atendimento automatizado e triagem.</p>
+        <a class="svc-link" href="#contato" data-servico="Atendimento inteligente">Quero saber mais<span class="sr-only"> sobre Atendimento inteligente</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><circle cx="11.5" cy="14" r="2.5"/><path d="m13.5 16 2 2"/></svg></div>
+        <h3>Assistentes internos</h3><p>IA capaz de consultar documentos e informações da empresa.</p>
+        <a class="svc-link" href="#contato" data-servico="Assistentes internos">Quero saber mais<span class="sr-only"> sobre Assistentes internos</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg></div>
+        <h3>Organização de informações</h3><p>Estruturação de conhecimento para facilitar acesso e consulta.</p>
+        <a class="svc-link" href="#contato" data-servico="Organização de informações">Quero saber mais<span class="sr-only"> sobre Organização de informações</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg></div>
+        <h3>Qualificação de leads</h3><p>Automação da primeira etapa do atendimento comercial.</p>
+        <a class="svc-link" href="#contato" data-servico="Qualificação de leads">Quero saber mais<span class="sr-only"> sobre Qualificação de leads</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7H6a5 5 0 0 0 0 10h3M15 7h3a5 5 0 0 1 0 10h-3M8 12h8"/></svg></div>
+        <h3>Integrações</h3><p>Conexão entre ferramentas, sistemas e soluções de IA.</p>
+        <a class="svc-link" href="#contato" data-servico="Integrações">Quero saber mais<span class="sr-only"> sobre Integrações</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- APLICAÇÕES -->
+<section class="section apps" id="aplicacoes" aria-labelledby="t-apps">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Aplicações</span>
+      <h2 id="t-apps">Onde a IA pode entrar no seu dia a dia.</h2>
+      <p>Alguns exemplos de áreas em que automação e Inteligência Artificial costumam fazer diferença.</p>
+    </div>
+    <div class="apps-wrap reveal">
+      <div class="tablist" role="tablist" aria-label="Áreas de aplicação">
+        <button class="tab" role="tab" id="tab-1" aria-controls="p-1" aria-selected="true"><span>ATENDIMENTO<small>Responder, organizar e encaminhar</small></span><i class="arrow"></i></button>
+        <button class="tab" role="tab" id="tab-2" aria-controls="p-2" aria-selected="false" tabindex="-1"><span>VENDAS<small>Qualificar e organizar oportunidades</small></span><i class="arrow"></i></button>
+        <button class="tab" role="tab" id="tab-3" aria-controls="p-3" aria-selected="false" tabindex="-1"><span>ADMINISTRATIVO<small>Reduzir tarefas repetitivas</small></span><i class="arrow"></i></button>
+        <button class="tab" role="tab" id="tab-4" aria-controls="p-4" aria-selected="false" tabindex="-1"><span>DOCUMENTOS<small>Encontrar informações rapidamente</small></span><i class="arrow"></i></button>
+        <button class="tab" role="tab" id="tab-5" aria-controls="p-5" aria-selected="false" tabindex="-1"><span>PROCESSOS<small>Automatizar etapas operacionais</small></span><i class="arrow"></i></button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="p-1" aria-labelledby="tab-1" tabindex="0">
+        <h3>Atendimento</h3><p>Responder, organizar e encaminhar solicitações.</p>
+        <div class="flow">
+          <div class="flow-step"><b>ENTRADA</b><span>Cliente envia uma mensagem pelo canal da empresa.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step mid"><b>IA</b><span>Identifica o assunto e responde dúvidas frequentes.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step"><b>RESULTADO</b><span>Casos específicos seguem para a pessoa certa, já com contexto.</span></div>
+        </div>
+        <p class="panel-foot">Exemplo ilustrativo. Cada fluxo é desenhado a partir da realidade da empresa.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-2" aria-labelledby="tab-2" tabindex="0" hidden>
+        <h3>Vendas</h3><p>Qualificar leads e organizar oportunidades.</p>
+        <div class="flow">
+          <div class="flow-step"><b>ENTRADA</b><span>Novo contato chega por site, redes ou WhatsApp.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step mid"><b>IA</b><span>Faz as primeiras perguntas e registra as respostas.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step"><b>RESULTADO</b><span>O time comercial recebe oportunidades organizadas por prioridade.</span></div>
+        </div>
+        <p class="panel-foot">Exemplo ilustrativo. Cada fluxo é desenhado a partir da realidade da empresa.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-3" aria-labelledby="tab-3" tabindex="0" hidden>
+        <h3>Administrativo</h3><p>Reduzir tarefas repetitivas.</p>
+        <div class="flow">
+          <div class="flow-step"><b>ENTRADA</b><span>Formulários, pedidos e dados que precisam ser lançados.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step mid"><b>IA</b><span>Lê, extrai e preenche as informações automaticamente.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step"><b>RESULTADO</b><span>A equipe apenas revisa e aprova, em vez de digitar.</span></div>
+        </div>
+        <p class="panel-foot">Exemplo ilustrativo. Cada fluxo é desenhado a partir da realidade da empresa.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-4" aria-labelledby="tab-4" tabindex="0" hidden>
+        <h3>Documentos</h3><p>Encontrar informações rapidamente.</p>
+        <div class="flow">
+          <div class="flow-step"><b>ENTRADA</b><span>Colaborador faz uma pergunta sobre uma política ou procedimento.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step mid"><b>IA</b><span>Consulta os documentos internos autorizados.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step"><b>RESULTADO</b><span>Resposta direta, indicando o documento de origem.</span></div>
+        </div>
+        <p class="panel-foot">Exemplo ilustrativo. Cada fluxo é desenhado a partir da realidade da empresa.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="p-5" aria-labelledby="tab-5" tabindex="0" hidden>
+        <h3>Processos</h3><p>Automatizar etapas operacionais.</p>
+        <div class="flow">
+          <div class="flow-step"><b>ENTRADA</b><span>Uma etapa é concluída em um sistema.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step mid"><b>IA</b><span>Aciona automaticamente as próximas etapas e notificações.</span></div>
+          <div class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow"/></svg></div>
+          <div class="flow-step"><b>RESULTADO</b><span>Menos retrabalho e menos etapas esquecidas.</span></div>
+        </div>
+        <p class="panel-foot">Exemplo ilustrativo. Cada fluxo é desenhado a partir da realidade da empresa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAL -->
+<section class="section" aria-labelledby="t-diff">
+  <div class="container diff-grid">
+    <div class="diff-intro reveal">
+      <span class="eyebrow">Diferencial</span>
+      <h2 id="t-diff">IA sem <span>complicação.</span></h2>
+      <p>Inteligência Artificial não precisa ser difícil de entender nem de usar. Nosso papel é traduzir a tecnologia em algo simples e útil para a sua equipe.</p>
+      <div class="diff-quote">Se a solução não fizer sentido para quem vai usá-la no dia a dia, ela ainda não está pronta.</div>
+    </div>
+    <div class="diff-list reveal">
+      <div class="diff-item"><span class="n">01</span><h3>Entendimento do negócio</h3><p>Antes de propor qualquer coisa, entendemos como sua empresa funciona.</p></div>
+      <div class="diff-item"><span class="n">02</span><h3>Soluções personalizadas</h3><p>Nada de pacotes prontos. Cada solução parte de uma necessidade real.</p></div>
+      <div class="diff-item"><span class="n">03</span><h3>Linguagem simples</h3><p>Explicamos tudo sem jargões — você sabe o que está sendo feito e por quê.</p></div>
+      <div class="diff-item"><span class="n">04</span><h3>Implementação prática</h3><p>O foco é colocar a solução para funcionar na rotina, não em apresentações.</p></div>
+      <div class="diff-item"><span class="n">05</span><h3>Transparência</h3><p>Escopo, limites e custos claros. Se a IA não for o melhor caminho, dizemos.</p></div>
+      <div class="diff-item"><span class="n">06</span><h3>Acompanhamento</h3><p>Seguimos junto após a entrega, ajustando conforme o uso real.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="section about" id="sobre" aria-labelledby="t-sobre">
+  <div class="container about-grid">
+    <div class="about-card reveal" aria-hidden="false">
+      <svg class="pattern" viewBox="0 0 400 430" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1">
+          <path d="M-40 430 L200 10 L440 430"/><path d="M0 430 L200 80 L400 430"/><path d="M40 430 L200 150 L360 430"/>
+          <path d="M80 430 L200 220 L320 430"/>
+        </g>
+        <svg x="232" y="30" width="140" height="106" viewBox="0 0 196 148"><path fill="#fff" fill-opacity=".95" d="M84 0h28l84 148h-31l-34-59-13 19-14-23 12-23-18-30-18 30 12 23-14 23-13-19-34 59H0z"/><path fill="#C4512A" d="M98 93l14 24-14 24-14-24z"/></svg>
+      </svg>
+      <h3>Uma equipe jovem, perto das novas tecnologias.</h3>
+      <p>E comprometida em transformá-las em soluções práticas para negócios reais.</p>
+    </div>
+    <div class="about-text reveal">
+      <span class="eyebrow">Sobre a MINDRA</span>
+      <h2 id="t-sobre">Uma consultoria jovem, com os pés no chão.</h2>
+      <p>A <strong>MINDRA é uma empresa jovem de consultoria e implementação de Inteligência Artificial.</strong> Nascemos em um momento em que a IA avança rápido — e em que muitas empresas ainda não sabem como aproveitá-la de forma segura e útil.</p>
+      <p>Acompanhamos de perto as novas tecnologias e trabalhamos para transformá-las em soluções práticas, sempre partindo do que o negócio realmente precisa. Preferimos construir confiança com trabalho bem feito a fazer promessas que não podemos sustentar.</p>
+      <div class="commit">
+        <div><h4>Honestidade</h4><p>Dizemos com clareza o que a IA pode e o que não pode fazer.</p></div>
+        <div><h4>Proximidade</h4><p>Contato direto com quem está desenvolvendo a solução.</p></div>
+        <div><h4>Atualização constante</h4><p>Estudo contínuo das ferramentas e boas práticas.</p></div>
+        <div><h4>Responsabilidade</h4><p>Cuidado com os dados e com a rotina da sua equipe.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="section" id="contato" aria-labelledby="t-contato">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Contato</span>
+      <h2 id="t-contato">Conte para a MINDRA o que sua empresa precisa.</h2>
+      <p>Não é preciso saber qual tecnologia usar. Descreva a dificuldade — nós ajudamos a encontrar o caminho.</p>
+      <ol class="next">
+        <li><div><b>Recebemos sua mensagem</b><span>Lemos com atenção o contexto que você enviou.</span></div></li>
+        <li><div><b>Entramos em contato</b><span>Pelo WhatsApp ou e-mail, para agendar uma conversa.</span></div></li>
+        <li><div><b>Conversa inicial</b><span>Entendemos o cenário e indicamos os próximos passos.</span></div></li>
+      </ol>
+      <div class="channels">
+        <a class="channel" href="https://wa.me/5519995836303?text=Ol%C3%A1%2C%20MINDRA!%20Gostaria%20de%20conversar%20sobre%20IA%20para%20minha%20empresa." target="_blank" rel="noopener"><span class="ci"><svg aria-hidden="true"><use href="#i-wa"/></svg></span><span><small>WhatsApp</small><b>(19) 99583-6303</b></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="channel" href="mailto:mindra6411@gmail.com"><span class="ci"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><span><small>E-mail</small><b>mindra6411@gmail.com</b></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="channel" href="https://instagram.com/mindr.a1" target="_blank" rel="noopener"><span class="ci"><svg aria-hidden="true"><use href="#i-ig"/></svg></span><span><small>Instagram</small><b>@mindr.a1</b></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+
+    <form class="form reveal" id="form" novalidate action="https://formsubmit.co/mindra6411@gmail.com" method="POST">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_subject" id="f-subject" value="Novo contato pelo site — MINDRA">
+      <input type="hidden" name="_next" id="f-next" value="">
+      <div class="form-body">
+        <div class="form-grid">
+          <div class="field"><label for="f-nome">Nome</label><input id="f-nome" name="nome" autocomplete="name" required><span class="err">Informe seu nome.</span></div>
+          <div class="field"><label for="f-empresa">Empresa</label><input id="f-empresa" name="empresa" autocomplete="organization" required><span class="err">Informe o nome da empresa.</span></div>
+          <div class="field"><label for="f-segmento">Segmento</label>
+            <select id="f-segmento" name="segmento" required>
+              <option value="">Selecione</option><option>Comércio / Varejo</option><option>Serviços</option><option>Saúde</option><option>Educação</option><option>Indústria</option><option>Imobiliário</option><option>Jurídico / Contábil</option><option>Tecnologia</option><option>Outro</option>
+            </select><span class="err">Selecione o segmento.</span></div>
+          <div class="field"><label for="f-whats">WhatsApp</label><input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" required><span class="err">Informe um WhatsApp válido com DDD.</span></div>
+          <div class="field full"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err">Informe um e-mail válido.</span></div>
+          <div class="field"><label for="f-problema">Principal problema</label>
+            <select id="f-problema" name="problema" required>
+              <option value="">Selecione</option><option>Processos repetitivos</option><option>Atendimento sobrecarregado</option><option>Informações desorganizadas</option><option>Muitas tarefas manuais</option><option>Perda de tempo</option><option>Dificuldade para acompanhar clientes</option><option>Outro / Não sei definir</option>
+            </select><span class="err">Selecione o principal problema.</span></div>
+          <div class="field"><label for="f-servico">Serviço de interesse</label>
+            <select id="f-servico" name="servico" required>
+              <option value="">Selecione</option><option>Consultoria em IA</option><option>Automação</option><option>Atendimento inteligente</option><option>Assistentes internos</option><option>Organização de informações</option><option>Qualificação de leads</option><option>Integrações</option><option>Ainda não sei</option>
+            </select><span class="err">Selecione um serviço.</span></div>
+          <div class="field full"><label for="f-msg">Mensagem <span class="opt">(opcional)</span></label><textarea id="f-msg" name="mensagem" placeholder="Conte um pouco sobre a rotina da empresa e o que gostaria de melhorar."></textarea></div>
+        </div>
+        <div class="form-foot">
+          <p>Seus dados serão usados apenas para retornar este contato. Prefere falar direto? <a href="https://wa.me/5519995836303" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Chame no WhatsApp</a>.</p>
+          <button type="submit" class="btn btn-primary">Enviar para a MINDRA <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+      <div class="form-success" role="status" aria-live="polite">
+        <svg viewBox="0 0 196 148" aria-hidden="true"><use href="#mindra-m"/></svg>
+        <h3>Mensagem enviada.</h3>
+        <p>Obrigado pelo contato. A MINDRA vai analisar as informações e retornar em breve.</p>
+        <div class="success-actions"><a class="btn btn-primary btn-sm" id="wa-follow" href="https://wa.me/5519995836303" target="_blank" rel="noopener">Continuar pelo WhatsApp</a></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band" aria-label="Chamada final">
+  <div class="container cta-inner">
+    <svg class="deco" viewBox="0 0 196 148" aria-hidden="true" style="--m-main:#fff;--m-accent:#fff"><use href="#mindra-m"/></svg>
+    <div>
+      <h2>Vamos descobrir juntos onde a IA faz sentido na sua empresa?</h2>
+      <p>Uma conversa inicial para entender seu cenário.</p>
+    </div>
+    <a href="#contato" class="btn btn-accent">Falar com a MINDRA <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="#topo" class="brand brand--light" aria-label="MINDRA — voltar ao topo">
+          <svg viewBox="0 0 196 148" aria-hidden="true" style="--m-main:#fff"><use href="#mindra-m"/></svg>
+          <span class="brand-text"><span class="brand-name">MINDRA</span><span class="brand-sub">CONSULTORIA EM INTELIGÊNCIA ARTIFICIAL</span></span>
+        </a>
+        <p>Consultoria e implementação de Inteligência Artificial para simplificar processos e tornar o trabalho mais eficiente.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/5519995836303" target="_blank" rel="noopener" aria-label="WhatsApp da MINDRA"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+          <a href="mailto:mindra6411@gmail.com" aria-label="E-mail da MINDRA"><svg aria-hidden="true"><use href="#i-mail"/></svg></a>
+          <a href="https://instagram.com/mindr.a1" target="_blank" rel="noopener" aria-label="Instagram da MINDRA"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="Rodapé">
+        <div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre</a></li><li><a href="#como-trabalhamos">Como trabalhamos</a></li><li><a href="#contato">Contato</a></li></ul></div>
+        <div><h4>Soluções</h4><ul><li><a href="#servicos">Serviços</a></li><li><a href="#aplicacoes">Aplicações</a></li></ul></div>
+        <div><h4>Contato</h4><ul><li><a href="https://wa.me/5519995836303" target="_blank" rel="noopener">(19) 99583-6303</a></li><li><a href="mailto:mindra6411@gmail.com">mindra6411@gmail.com</a></li><li><a href="https://instagram.com/mindr.a1" target="_blank" rel="noopener">@mindr.a1</a></li></ul></div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="ano">2026</span> MINDRA. Todos os direitos reservados.</span>
+      <a href="#topo">Voltar ao topo ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Envio do formulário para o e-mail da MINDRA via FormSubmit (fluxo tradicional).
+   O visitante é levado ao captcha do FormSubmit e depois retorna ao site.
+   Na primeira mensagem, o FormSubmit envia um e-mail de ativação para mindra6411@gmail.com. */
+const CONTACT_EMAIL = "mindra6411@gmail.com";
+const WHATSAPP = "5519995836303";
+// ▼▼▼ COLE AQUI A URL DO WEB APP (Google Apps Script) ▼▼▼
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrSF_Vt8sJzOGOxMFKq1MCDdgc4A5VXwXrdE4XzIQ-GTZJ2lbRvAe9Dfb4FYz28YztA/exec";
+
+document.documentElement.classList.add('js');
+document.getElementById('ano').textContent = new Date().getFullYear();
+
+// Header
+const header = document.querySelector('.header');
+const onScroll = () => header.classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// Menu mobile
+const menuBtn = document.querySelector('.menu-btn'), nav = document.getElementById('nav');
+menuBtn.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false');
+}));
+
+// Reveal
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+
+// Tabs acessíveis
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function select(tab, focus) {
+  tabs.forEach(t => {
+    const on = t === tab;
+    t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+  });
+  if (focus) tab.focus();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => select(t));
+  t.addEventListener('keydown', e => {
+    const k = e.key; let n = null;
+    if (k === 'ArrowDown' || k === 'ArrowRight') n = (i + 1) % tabs.length;
+    if (k === 'ArrowUp' || k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+    if (k === 'Home') n = 0; if (k === 'End') n = tabs.length - 1;
+    if (n !== null) { e.preventDefault(); select(tabs[n], true); }
+  });
+});
+
+// Pré-seleciona o serviço ao clicar em "Quero saber mais"
+document.querySelectorAll('[data-servico]').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('f-servico').value = a.dataset.servico;
+}));
+
+// Máscara WhatsApp
+const wa = document.getElementById('f-whats');
+wa.addEventListener('input', () => {
+  let d = wa.value.replace(/\D/g, '').slice(0, 11);
+  if (d.length > 10) wa.value = `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+  else if (d.length > 6) wa.value = `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+  else if (d.length > 2) wa.value = `(${d.slice(0,2)}) ${d.slice(2)}`;
+  else if (d.length) wa.value = `(${d}`;
+});
+
+// Formulário
+const form = document.getElementById('form');
+const validators = {
+  whatsapp: v => v.replace(/\D/g, '').length >= 10,
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)
+};
+function check(el) {
+  const f = el.closest('.field'); const v = el.value.trim();
+  let ok = !el.required || v !== '';
+  if (ok && v && validators[el.name]) ok = validators[el.name](v);
+  f.classList.toggle('invalid', !ok);
+  el.setAttribute('aria-invalid', !ok);
+  return ok;
+}
+form.querySelectorAll('input,select,textarea').forEach(el => {
+  const err = el.parentElement.querySelector('.err');
+  if (err) { err.id = el.id + '-err'; el.setAttribute('aria-describedby', err.id); }
+  el.addEventListener('blur', () => el.value && check(el));
+  el.addEventListener('input', () => el.closest('.field').classList.contains('invalid') && check(el));
+});
+form.addEventListener('submit', e => {
+  const els = [...form.querySelectorAll('[required]')];
+  const bad = els.filter(el => !check(el));
+  if (bad.length) { e.preventDefault(); bad[0].focus(); return; }
+  const data = Object.fromEntries(new FormData(form));
+  // Assunto do e-mail com o nome da empresa
+  document.getElementById('f-subject').value = `Novo contato pelo site — ${data.empresa}`;
+  // Depois do captcha do FormSubmit, volta para a seção de contato com a confirmação
+  const base = location.origin + location.pathname;
+  document.getElementById('f-next').value = `${base}?enviado=1#contato`;
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.firstChild.textContent = 'Enviando… ';
+
+  // Grava o lead na planilha (Google Apps Script) e só então segue para o FormSubmit.
+  if (APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('http') === 0) {
+    e.preventDefault();
+    const lead = {};
+    Object.keys(data).forEach(k => { if (k.charAt(0) !== '_') lead[k] = data[k]; });
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // evita bloqueio de CORS; a gravação acontece do mesmo jeito
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(lead)
+    }).catch(err => console.warn('MINDRA: falha ao gravar na planilha.', err))
+      .finally(() => form.submit()); // envio nativo: não redispara este listener
+    return;
+  }
+  // Se APPS_SCRIPT_URL não estiver configurada: o navegador envia normalmente para
+  // o FormSubmit, mostra o captcha e depois retorna para _next (comportamento atual).
+});
+
+// Mostra a confirmação ao voltar do FormSubmit (?enviado=1)
+if (new URLSearchParams(location.search).get('enviado') === '1') {
+  form.classList.add('sent');
+  document.getElementById('wa-follow').href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent('Olá, MINDRA! Acabei de enviar meu contato pelo site.')}`;
+  history.replaceState(null, '', location.pathname + '#contato');
+  document.getElementById('contato')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+</script>
+</body>
+</html>
